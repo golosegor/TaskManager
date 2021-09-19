@@ -3,9 +3,6 @@ package com.home.taskmanager
 import com.home.taskmanager.process.Process
 
 interface ProcessManager {
-    companion object {
-        const val MAX_CAPACITY = 10
-    }
 
     fun addProcess(process: Process)
     fun listRunningProcesses(): List<Process>
