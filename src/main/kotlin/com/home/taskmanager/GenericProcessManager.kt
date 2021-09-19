@@ -2,6 +2,8 @@ package com.home.taskmanager
 
 import com.home.taskmanager.process.Process
 import mu.KLogging
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 
 class GenericProcessManager(
     private val limit: Int,
@@ -9,7 +11,7 @@ class GenericProcessManager(
 ) : ProcessManager {
     companion object : KLogging()
 
-    private var processes: MutableMap<String, Process> = mutableMapOf()
+    private var processes: ConcurrentMap<String, Process> = ConcurrentHashMap()
 
     override fun addProcess(process: Process) {
         if (processes.size < limit) {
@@ -31,15 +33,14 @@ class GenericProcessManager(
     }
 
     override fun killProcess(pid: String) {
-        TODO("Not yet implemented")
+        processes.remove(pid)?.kill()
     }
 
-    override fun killGroup(pid: String) {
-        TODO("Not yet implemented")
+    override fun killGroup(pids: List<String>) {
+        pids.forEach { killProcess(it) }
     }
 
-    override fun killAll(pid: String) {
-        TODO("Not yet implemented")
+    override fun killAll() {
+        processes.values.forEach { d -> killProcess(d.pid) }
     }
-
 }
