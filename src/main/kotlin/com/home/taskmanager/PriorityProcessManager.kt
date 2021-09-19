@@ -24,7 +24,7 @@ class PriorityProcessManager(private val limit: Int) : ProcessManager {
     }
 
     override fun listRunningProcesses(): List<Process> {
-        TODO("Not yet implemented")
+        return this.processes
     }
 
     override fun killProcess(pid: String) {
