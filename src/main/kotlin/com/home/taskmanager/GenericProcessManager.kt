@@ -12,7 +12,9 @@ class GenericProcessManager(
     private var processes: MutableMap<String, Process> = mutableMapOf()
 
     override fun addProcess(process: Process) {
-        if (processes.size >= limit) {
+        if (processes.size < limit) {
+            processes[process.pid] = process
+        } else {
             val processToKick = kickOutStrategy.findProcessToKick(processes.values.toList(), process)
             if (processToKick != null) {
                 processToKick.kill()
@@ -21,8 +23,6 @@ class GenericProcessManager(
             } else {
                 logger.info { "Limit exceeded, but no process to kick found -> ignoring process" }
             }
-        } else {
-            processes[process.pid] = process
         }
     }
 
