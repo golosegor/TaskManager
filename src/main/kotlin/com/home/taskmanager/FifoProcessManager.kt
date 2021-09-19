@@ -6,11 +6,12 @@ class FifoProcessManager(private val limit: Int) : ProcessManager {
     private val processes: MutableList<Process> = mutableListOf()
 
     override fun addProcess(process: Process) {
-        if (processes.size > limit){
+        if (processes.size < limit) {
+            processes.add(process)
+        } else {
             val removedElement = processes.removeAt(0)
             removedElement.kill()
         }
-        processes.add(process)
     }
 
     override fun listRunningProcesses(): List<Process> {

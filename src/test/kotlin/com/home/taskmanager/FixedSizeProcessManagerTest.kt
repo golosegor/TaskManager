@@ -18,12 +18,11 @@ class FixedSizeProcessManagerTest {
 
     @Test
     fun `it is not possible to more processes than limit`() {
-        val limit = 5
+        val limit = 1
         val pm = FixedSizeProcessManager(limit)
+        pm.addProcess(Process("id1", Priority.LOW))
         assertThrows(IllegalStateException::class.java) {
-            (1..limit + 1).forEach { id ->
-                pm.addProcess(Process("$id", Priority.LOW))
-            }
+            pm.addProcess(Process("id2", Priority.LOW))
         }
     }
 }
