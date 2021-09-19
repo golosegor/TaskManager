@@ -19,7 +19,7 @@ class FifoProcessManagerTest {
         val p2 = Process("id2", Priority.LOW)
         pm.addProcess(p1)
         pm.addProcess(p2)
-        assertThat(pm.listRunningProcesses()).containsExactly(p2)
+        assertThat(pm.listProcesses()).containsExactly(p2)
         //then
         assertThat(p1.isAlive()).isFalse
         assertThat(p2.isAlive()).isTrue

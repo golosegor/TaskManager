@@ -28,7 +28,7 @@ class GenericProcessManager(
         }
     }
 
-    override fun listRunningProcesses(): List<Process> {
+    override fun listProcesses(): List<Process> {
         return processes.values.toList()
     }
 

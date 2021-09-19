@@ -25,7 +25,7 @@ class PriorityProcessManagerTest {
         pm.addProcess(p1)
         pm.addProcess(p2)
         //then
-        assertThat(pm.listRunningProcesses()).containsOnly(p2)
+        assertThat(pm.listProcesses()).containsOnly(p2)
         assertThat(p1.isAlive()).isFalse
         assertThat(p2.isAlive()).isTrue
     }
@@ -42,6 +42,6 @@ class PriorityProcessManagerTest {
         pm.addProcess(p1)
         pm.addProcess(p2)
         //then
-        assertThat(pm.listRunningProcesses()).containsOnly(p1)
+        assertThat(pm.listProcesses()).containsOnly(p1)
     }
 }

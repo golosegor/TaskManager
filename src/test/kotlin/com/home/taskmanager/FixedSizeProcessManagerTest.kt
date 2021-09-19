@@ -16,7 +16,7 @@ class FixedSizeProcessManagerTest {
         val pm = ProcessManager.createFixedSize(5)
         val p1 = Process("12351", Priority.LOW)
         pm.addProcess(p1)
-        assertThat(pm.listRunningProcesses()).containsExactly(p1)
+        assertThat(pm.listProcesses()).containsExactly(p1)
     }
 
     @Test
@@ -28,6 +28,6 @@ class FixedSizeProcessManagerTest {
         assertThrows(IllegalStateException::class.java) {
             pm.addProcess(Process("id2", Priority.LOW))
         }
-        assertThat(pm.listRunningProcesses()).containsExactly(p1)
+        assertThat(pm.listProcesses()).containsExactly(p1)
     }
 }

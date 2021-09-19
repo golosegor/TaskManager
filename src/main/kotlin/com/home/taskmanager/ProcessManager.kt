@@ -5,17 +5,16 @@ import com.home.taskmanager.kickout.strategy.FixedSizeStrategy
 import com.home.taskmanager.kickout.strategy.PriorityStrategy
 import com.home.taskmanager.process.Priority
 import com.home.taskmanager.process.Process
-import mu.KLogging
 
 interface ProcessManager {
 
     fun addProcess(process: Process)
-    fun listRunningProcesses(): List<Process>
+    fun listProcesses(): List<Process>
     fun killProcess(pid: String)
     fun killGroup(pids: List<String>)
     fun killAll()
 
-    companion object : KLogging() {
+    companion object {
         fun createFixedSize(limit: Int) = GenericProcessManager(limit, FixedSizeStrategy())
         fun createFifo(limit: Int) = GenericProcessManager(limit, FifoStrategy())
         fun createPriority(limit: Int) = GenericProcessManager(limit, PriorityStrategy())
@@ -23,7 +22,7 @@ interface ProcessManager {
 }
 
 fun ProcessManager.killAllProcessesWithPriority(priority: Priority) {
-    val pidsToKill = listRunningProcesses().filter { it.priority == priority }.map { it.pid }
+    val pidsToKill = listProcesses().filter { it.priority == priority }.map { it.pid }
     this.killGroup(pidsToKill)
 }
 
