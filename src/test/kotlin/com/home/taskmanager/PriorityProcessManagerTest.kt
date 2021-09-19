@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test
 class PriorityProcessManagerTest {
     @Test
     fun `it is possible to more processes than limit`() {
-        val pm = PriorityProcessManager(1)
+        val pm = ProcessManager.createPriority(1)
         pm.addProcess(Process("id1", Priority.LOW))
         pm.addProcess(Process("id2", Priority.LOW))
     }
 
     @Test
     fun `if priority is greater that existing - it is replaces the less priority tasks`() {
-        val pm = PriorityProcessManager(1)
+        val pm = ProcessManager.createPriority(1)
         //given
         val p1 = Process("p1", Priority.LOW)
         val p2 = Process("p2", Priority.HIGH)
@@ -32,7 +32,7 @@ class PriorityProcessManagerTest {
 
     @Test
     fun `if priority is less that existing - newly added process is ignored`() {
-        val pm = PriorityProcessManager(1)
+        val pm = ProcessManager.createPriority(1)
         //given
         val p1 = Process("p1", Priority.HIGH)
         val p2 = Process("p2", Priority.LOW)

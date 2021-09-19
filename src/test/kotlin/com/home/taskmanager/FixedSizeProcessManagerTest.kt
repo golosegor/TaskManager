@@ -13,7 +13,7 @@ class FixedSizeProcessManagerTest {
 
     @Test
     fun `process could be added`() {
-        val pm = FixedSizeProcessManager(5)
+        val pm = ProcessManager.createFixedSize(5)
         val p1 = Process("12351", Priority.LOW)
         pm.addProcess(p1)
         assertThat(pm.listRunningProcesses()).containsExactly(p1)
@@ -22,7 +22,7 @@ class FixedSizeProcessManagerTest {
     @Test
     fun `it is not possible to more processes than limit`() {
         val limit = 1
-        val pm = FixedSizeProcessManager(limit)
+        val pm = ProcessManager.createFixedSize(limit)
         val p1 = Process("id1", Priority.LOW)
         pm.addProcess(p1)
         assertThrows(IllegalStateException::class.java) {

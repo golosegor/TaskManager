@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test
 class FifoProcessManagerTest {
     @Test
     fun `process could be added`() {
-        val pm = FixedSizeProcessManager(5)
+        val pm = ProcessManager.createFifo(5)
         pm.addProcess(Process("12351", Priority.LOW))
     }
 
     @Test
     fun `pm does not throw in case process limit exceeded`() {
-        val pm = FifoProcessManager(1)
+        val pm = ProcessManager.createFifo(1)
         val p1 = Process("id1", Priority.LOW)
         val p2 = Process("id2", Priority.LOW)
         pm.addProcess(p1)
@@ -27,7 +27,7 @@ class FifoProcessManagerTest {
 
     @Test
     fun `fifo kills old process in case size is exceeded`() {
-        val pm = FifoProcessManager(1)
+        val pm = ProcessManager.createFifo(1)
         //given
         val p1 = Process("p1", Priority.LOW)
         val p2 = Process("p2", Priority.LOW)
