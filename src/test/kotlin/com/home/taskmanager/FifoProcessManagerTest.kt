@@ -13,7 +13,7 @@ class FifoProcessManagerTest {
     }
 
     @Test
-    fun `pm does not throw in case process limit exeeded`() {
+    fun `pm does not throw in case process limit exceeded`() {
         val pm = FifoProcessManager(1)
         val p1 = Process("id1", Priority.LOW)
         val p2 = Process("id2", Priority.LOW)

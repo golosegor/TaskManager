@@ -2,32 +2,16 @@ package com.home.taskmanager
 
 import com.home.taskmanager.process.Process
 
-class FifoProcessManager(private val limit: Int) : ProcessManager {
-    private val processes: MutableList<Process> = mutableListOf()
-
-    override fun addProcess(process: Process) {
-        if (processes.size < limit) {
-            processes.add(process)
+class FifoProcessManager(override val limit: Int) : AbstractProcessManager(limit) {
+    override fun addProcess(existingProcesses: List<Process>, process: Process): List<Process> {
+        return if (existingProcesses.size < limit) {
+            existingProcesses.plus(process)
         } else {
-            val removedElement = processes.removeAt(0)
-            removedElement.kill()
+            return existingProcesses.toMutableList().apply {
+                val removeAt = removeAt(0)
+                removeAt.kill()
+                add(process)
+            }
         }
     }
-
-    override fun listRunningProcesses(): List<Process> {
-        return processes
-    }
-
-    override fun killProcess(pid: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun killGroup(pid: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun killAll(pid: String) {
-        TODO("Not yet implemented")
-    }
-
 }

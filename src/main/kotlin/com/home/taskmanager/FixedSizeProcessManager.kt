@@ -1,34 +1,14 @@
 package com.home.taskmanager
 
 import com.home.taskmanager.process.Process
-import java.util.concurrent.ConcurrentHashMap
 
-class FixedSizeProcessManager(private val limit: Int) : ProcessManager {
+class FixedSizeProcessManager(override val limit: Int) : AbstractProcessManager(limit) {
 
-    private val processes: MutableMap<String, Process> = ConcurrentHashMap<String, Process>()
-
-    override fun addProcess(process: Process) {
-        if (processes.size < limit) {
-            processes[process.pid] = process
+    override fun addProcess(existingProcesses: List<Process>, process: Process): List<Process> {
+        return if (existingProcesses.size < limit) {
+            existingProcesses.toMutableList().apply { add(process) }
         } else {
             throw IllegalStateException("Process limit reached")
         }
-    }
-
-    override fun listRunningProcesses(): List<Process> {
-        return processes.values.toList()
-    }
-
-    override fun killProcess(pid: String) {
-        throw IllegalStateException("")
-    }
-
-
-    override fun killGroup(pid: String) {
-        throw IllegalStateException("")
-    }
-
-    override fun killAll(pid: String) {
-        throw IllegalStateException("")
     }
 }
