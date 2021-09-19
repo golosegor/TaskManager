@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap
 
 class FixedSizeProcessManager(private val limit: Int) : ProcessManager {
 
-
     private val processes: MutableMap<String, Process> = ConcurrentHashMap<String, Process>()
 
     override fun addProcess(process: Process) {
@@ -17,8 +16,7 @@ class FixedSizeProcessManager(private val limit: Int) : ProcessManager {
     }
 
     override fun listRunningProcesses(): List<Process> {
-
-        throw IllegalStateException("")
+        return processes.values.toList()
     }
 
     override fun killProcess(pid: String) {

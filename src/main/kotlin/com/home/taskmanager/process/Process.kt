@@ -3,7 +3,7 @@ package com.home.taskmanager.process
 import mu.KLogging
 import java.util.concurrent.atomic.AtomicBoolean
 
-class Process(val pid: String, val priority: Priority) {
+data class Process(val pid: String, val priority: Priority) {
     private val isAlive = AtomicBoolean(true)
 
     companion object : KLogging()

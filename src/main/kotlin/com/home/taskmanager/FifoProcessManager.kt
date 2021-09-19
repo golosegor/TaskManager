@@ -15,7 +15,7 @@ class FifoProcessManager(private val limit: Int) : ProcessManager {
     }
 
     override fun listRunningProcesses(): List<Process> {
-        TODO("Not yet implemented")
+        return processes
     }
 
     override fun killProcess(pid: String) {

@@ -13,10 +13,16 @@ class FifoProcessManagerTest {
     }
 
     @Test
-    fun `it is possible to more processes than limit`() {
+    fun `pm does not throw in case process limit exeeded`() {
         val pm = FifoProcessManager(1)
-        pm.addProcess(Process("id1", Priority.LOW))
-        pm.addProcess(Process("id2", Priority.LOW))
+        val p1 = Process("id1", Priority.LOW)
+        val p2 = Process("id2", Priority.LOW)
+        pm.addProcess(p1)
+        pm.addProcess(p2)
+        assertThat(pm.listRunningProcesses()).containsExactly(p2)
+        //then
+        assertThat(p1.isAlive()).isFalse
+        assertThat(p2.isAlive()).isTrue
     }
 
     @Test
@@ -30,9 +36,5 @@ class FifoProcessManagerTest {
         //when
         pm.addProcess(p1)
         pm.addProcess(p2)
-        //then
-        assertThat(p1.isAlive()).isFalse
-        assertThat(p2.isAlive()).isTrue
     }
-
 }
