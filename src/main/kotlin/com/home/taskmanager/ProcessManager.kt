@@ -16,12 +16,16 @@ interface ProcessManager {
     fun killGroup(pids: List<String>)
     fun killAll()
 
-    companion object {
+    companion object Factory {
         const val PM_MAX_CAPACITY = 5
-        fun createFixedSize(limit: Int = PM_MAX_CAPACITY) = GenericProcessManager(limit, FixedSizeStrategy())
+        fun createFixedSize(limit: Int = PM_MAX_CAPACITY): ProcessManager =
+            GenericProcessManager(limit, FixedSizeStrategy())
 
-        fun createFifo(limit: Int = PM_MAX_CAPACITY) = GenericProcessManager(limit, FifoStrategy())
-        fun createPriority(limit: Int = PM_MAX_CAPACITY) = GenericProcessManager(limit, PriorityStrategy())
+        fun createFifo(limit: Int = PM_MAX_CAPACITY): ProcessManager =
+            GenericProcessManager(limit, FifoStrategy())
+
+        fun createPriority(limit: Int = PM_MAX_CAPACITY): ProcessManager =
+            GenericProcessManager(limit, PriorityStrategy())
     }
 }
 
