@@ -17,7 +17,7 @@ class GenericProcessManagerTest {
         //when
         pm.killAll()
         //then
-        assertThat(pm.listProcessesWithMeta()).isEmpty()
+        assertThat(pm.listRegisteredProcesses()).isEmpty()
         assertThat(p1.isAlive()).isFalse
         assertThat(p2.isAlive()).isFalse
     }
@@ -47,6 +47,6 @@ class GenericProcessManagerTest {
         Thread.sleep(1)
         pm.addProcess(p2)
         assertThat(pm.listProcessSortedBy { it.process.priority.value }.map { it.process }).containsExactly(p2, p1)
-        assertThat(pm.listProcessSortedBy { it.ts }.map { it.process }).containsExactly(p1, p2)
+        assertThat(pm.listProcessSortedBy { it.timestamp }.map { it.process }).containsExactly(p1, p2)
     }
 }
