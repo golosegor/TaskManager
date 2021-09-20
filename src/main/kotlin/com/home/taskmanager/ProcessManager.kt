@@ -30,3 +30,7 @@ fun ProcessManager.killAllProcessesWithPriority(priority: Priority) {
 fun ProcessManager.listProcesses(): List<Process> {
     return listProcessesWithMeta().map { it.process }
 }
+
+fun <R : Comparable<R>> ProcessManager.listProcessSortedBy(selector: (MonitoredProcess) -> R): List<MonitoredProcess> {
+    return listProcessesWithMeta().sortedBy(selector)
+}

@@ -42,6 +42,7 @@ class GenericProcessManager(
     }
 
     override fun killAll() {
-        processes.values.map { it.process }.forEach { d -> killProcess(d.pid) }
+        val pidsToKill = processes.values.map { it.process.pid }
+        killGroup(pidsToKill)
     }
 }

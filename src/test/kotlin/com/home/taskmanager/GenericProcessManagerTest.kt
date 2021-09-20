@@ -37,4 +37,16 @@ class GenericProcessManagerTest {
         assertThat(p1.isAlive()).isTrue
         assertThat(p2.isAlive()).isFalse
     }
+
+    @Test
+    internal fun `list with sorting by priority  works fine`() {
+        val pm = ProcessManager.createFixedSize(10)
+        val p1 = Process("id1", Priority.HIGH)
+        val p2 = Process("id2", Priority.LOW)
+        pm.addProcess(p1)
+        Thread.sleep(1)
+        pm.addProcess(p2)
+        assertThat(pm.listProcessSortedBy { it.process.priority.value }.map { it.process }).containsExactly(p2, p1)
+        assertThat(pm.listProcessSortedBy { it.ts }.map { it.process }).containsExactly(p1, p2)
+    }
 }
