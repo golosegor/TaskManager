@@ -11,5 +11,4 @@
   simplicity this additional layer was omitted
 - Should priority PM kill the process that is "skipped" (according to doc it is just skipped, whatever it means)? Should
   we kill the process when process should be replaced?
-- How much process to we have? should we have an index-based access to make search by ID efficient? if we have 10-20
-  processes I believe we could keep it simple 
+- How much process to we have?
