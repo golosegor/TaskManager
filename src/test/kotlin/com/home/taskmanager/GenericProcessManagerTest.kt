@@ -17,7 +17,7 @@ class GenericProcessManagerTest {
         //when
         pm.killAll()
         //then
-        assertThat(pm.listProcesses()).isEmpty()
+        assertThat(pm.listProcessesWithMeta()).isEmpty()
         assertThat(p1.isAlive()).isFalse
         assertThat(p2.isAlive()).isFalse
     }
